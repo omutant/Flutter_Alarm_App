@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import '../../mainScreen.dart';
@@ -30,13 +29,20 @@ class STimerState extends State<STimer> {
   Widget build(BuildContext context) {
     return Slider(
         min: 0,
-        max: 60,
+        max: 59,
         value: sec.toDouble(),
+        
         onChanged: (double value) {
           setState(() {
             sec = value.toInt();
             secCon.add(timText.setTimerText());
+            cFace.cButt.pause();
           });
-        });
+      
+        },
+        onChangeEnd: (double value){
+          cButt.setSaveTime();
+        },
+    );
   }
 }

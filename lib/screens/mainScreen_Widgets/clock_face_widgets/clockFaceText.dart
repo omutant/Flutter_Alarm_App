@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../../themeData.dart';
 import '../clock_face.dart';
+import 'resetButton.dart';
 
 ClockFace cFace = ClockFace();
 
@@ -20,7 +21,7 @@ class ClockFaceText extends StatefulWidget {
 }
 
 class ClockFaceTextState extends State<ClockFaceText> {
-  StreamSubscription<String> secSub, minSub, hourSub, timerSub;
+  StreamSubscription<String> secSub, minSub, hourSub, timerSub, resetUpdateSub;
 
   void updateText() {
     setState(() {
@@ -30,8 +31,8 @@ class ClockFaceTextState extends State<ClockFaceText> {
 
   void dispose() {
     super.dispose();
-    
-
+    resetUpdateSub.cancel();
+    timerSub.cancel();
     secSub.cancel();
     minSub.cancel();
     hourSub.cancel();
@@ -40,6 +41,7 @@ class ClockFaceTextState extends State<ClockFaceText> {
   @override
   void initState() {
     super.initState();
+    resetUpdateSub = subStreamString(resetUpdateCon, mainText);
     timerSub = subStreamString(timerCon, mainText);
     secSub = subStreamString(secCon, mainText);
     minSub = subStreamString(minCon, mainText);

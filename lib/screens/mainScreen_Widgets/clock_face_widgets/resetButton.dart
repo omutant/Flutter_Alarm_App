@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alarm_app/icons/omu_alarm_icons_icons.dart';
 import 'package:alarm_app/themeData.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../clock_face.dart';
 
 ClockFace cFace = ClockFace();
+StreamController resetUpdateCon = StreamController<String>();
+StreamController updatePlayIconCon = StreamController<String>();
 
 class ClockFaceReset extends StatefulWidget {
   @override
@@ -25,6 +29,8 @@ class ClockFaceResetState extends State<ClockFaceReset> {
             icon: Icon(OmuAlarmIcons.reset),
             onPressed: () {
               cButt.reset();
+              resetUpdateCon.add(timText.setTimerText());
+              updatePlayIconCon.add(timText.setTimerText());
             },
           ),
         ),

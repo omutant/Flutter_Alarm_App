@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/hourSlider.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/minuteSlider.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_face.dart';
+import 'package:alarm_app/screens/mainScreen_Widgets/clock_face_widgets/clockFaceText.dart';
+import 'clock_face_widgets/pausePlayButton.dart';
 import 'package:flutter/material.dart';
 
 import 'clock_body_widgets/secondSlider.dart';
 
-StreamSubscription<String> bodSub;
+StreamSubscription<String> bodSub, playUpdateSub;
 ClockFace cFace = ClockFace();
 
 class ClockBody extends StatefulWidget {
@@ -17,6 +19,7 @@ class ClockBody extends StatefulWidget {
 
 class ClockBodyState extends State<ClockBody> {
   void dispose() {
+    playUpdateSub.cancel();
     bodSub.cancel();
     super.dispose();
   }
@@ -24,7 +27,8 @@ class ClockBodyState extends State<ClockBody> {
   @override
   void initState() {
     super.initState();
-    bodSub = subStreamString(bodCon, "Hello");
+    playUpdateSub = subStreamString(playUpdateCon, mainText);
+    bodSub = subStreamString(bodCon, mainText);
   }
 
   @override

@@ -8,13 +8,13 @@ StreamController<String> minCon = StreamController<String>();
 
 ClockFace cFace = ClockFace();
 
-class MTimer extends StatefulWidget{
+class MTimer extends StatefulWidget {
   @override
   MTimerState createState() => MTimerState();
 }
 
 class MTimerState extends State<MTimer> {
-    @override
+  @override
   void initState() {
     super.initState();
   }
@@ -27,14 +27,19 @@ class MTimerState extends State<MTimer> {
   @override
   Widget build(BuildContext context) {
     return Slider(
-        min: 0,
-        max: 60,
-        value: min.toDouble(),
-        onChanged: (double value) {
-          setState(() {
-            min = value.toInt();
-            minCon.add(timText.setTimerText());
-          });
+      min: 0,
+      max: 59,
+      value: min.toDouble(),
+      onChanged: (double value) {
+        setState(() {
+          min = value.toInt();
+          minCon.add(timText.setTimerText());
+          cFace.cButt.pause();
         });
+      },
+      onChangeEnd: (double value) {
+        cButt.setSaveTime();
+      },
+    );
   }
 }

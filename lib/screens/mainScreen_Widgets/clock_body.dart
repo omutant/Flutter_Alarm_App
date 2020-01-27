@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alarm_app/modules/main_clock/main_clock_ClockButtons.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/hourSlider.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/minuteSlider.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_face.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'clock_body_widgets/secondSlider.dart';
 
-StreamSubscription<String> bodSub, playUpdateSub;
+StreamSubscription<String> bodSub, playUpdateSub, favUpdateBodySub;
 ClockFace cFace = ClockFace();
 
 class ClockBody extends StatefulWidget {
@@ -19,6 +20,7 @@ class ClockBody extends StatefulWidget {
 
 class ClockBodyState extends State<ClockBody> {
   void dispose() {
+    favUpdateBodySub.cancel();
     playUpdateSub.cancel();
     bodSub.cancel();
     super.dispose();
@@ -27,6 +29,7 @@ class ClockBodyState extends State<ClockBody> {
   @override
   void initState() {
     super.initState();
+    favUpdateBodySub = subStreamString(favUpdateBodyCon, mainText);
     playUpdateSub = subStreamString(playUpdateCon, mainText);
     bodSub = subStreamString(bodCon, mainText);
   }
@@ -36,7 +39,7 @@ class ClockBodyState extends State<ClockBody> {
     return Expanded(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TimerSlider(HTimer()),

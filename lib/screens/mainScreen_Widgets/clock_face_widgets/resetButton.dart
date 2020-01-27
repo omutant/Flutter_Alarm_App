@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:alarm_app/icons/omu_alarm_icons_icons.dart';
+import 'package:alarm_app/icons/typicons_omu_alarm_icons.dart';
 import 'package:alarm_app/themeData.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class ClockFaceResetState extends State<ClockFaceReset> {
           color: defaultTheme.backgroundColor,
           child: IconButton(
             color: Colors.white,
-            icon: Icon(OmuAlarmIcons.reset),
+            icon: Icon(TypiconsOmuAlarm.cw_outline),
             onPressed: () {
               cButt.reset();
               resetUpdateCon.add(timText.setTimerText());

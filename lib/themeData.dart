@@ -17,6 +17,7 @@ ThemeData _buildDefaultTheme() {
   final ThemeData base = ThemeData.dark();
   
   return base.copyWith(
+    canvasColor: bgColor,
     backgroundColor: bgColor,
     highlightColor: hiColor,
     accentColor: shadowColor,

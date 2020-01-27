@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:alarm_app/icons/omu_alarm_icons_icons.dart';
+import 'package:alarm_app/icons/typicons_omu_alarm_icons.dart';
 
 import 'package:alarm_app/themeData.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class ClockFacePPState extends State<ClockFacePP> {
           child: !timTick.isAlarmPlaying
               ? IconButton(
                   color: Colors.white,
-                  icon: Icon(OmuAlarmIcons.play),
+                  icon: Icon(TypiconsOmuAlarm.play_outline),
                   onPressed: () {
                     setState(() {
                       cButt.play();
@@ -66,7 +66,7 @@ class ClockFacePPState extends State<ClockFacePP> {
                 )
               : IconButton(
                   color: Colors.white,
-                  icon: Icon(OmuAlarmIcons.pause),
+                  icon: Icon(TypiconsOmuAlarm.pause_outline),
                   onPressed: () {
                     setState(() {
                       cButt.pause();

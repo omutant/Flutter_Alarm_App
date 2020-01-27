@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alarm_app/modules/main_clock/main_clock_ClockButtons.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_TimerTick.dart';
 
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/hourSlider.dart';
@@ -21,7 +22,12 @@ class ClockFaceText extends StatefulWidget {
 }
 
 class ClockFaceTextState extends State<ClockFaceText> {
-  StreamSubscription<String> secSub, minSub, hourSub, timerSub, resetUpdateSub;
+  StreamSubscription<String> secSub,
+      minSub,
+      hourSub,
+      timerSub,
+      resetUpdateSub,
+      loadFavSub;
 
   void updateText() {
     setState(() {
@@ -31,6 +37,7 @@ class ClockFaceTextState extends State<ClockFaceText> {
 
   void dispose() {
     super.dispose();
+    loadFavSub.cancel();
     resetUpdateSub.cancel();
     timerSub.cancel();
     secSub.cancel();
@@ -41,6 +48,7 @@ class ClockFaceTextState extends State<ClockFaceText> {
   @override
   void initState() {
     super.initState();
+    loadFavSub = subStreamString(favUpdateFaceCon, mainText);
     resetUpdateSub = subStreamString(resetUpdateCon, mainText);
     timerSub = subStreamString(timerCon, mainText);
     secSub = subStreamString(secCon, mainText);

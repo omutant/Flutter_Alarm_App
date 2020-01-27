@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alarm_app/icons/typicons_omu_alarm_icons.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_ClockButtons.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_TimerText.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_TimerTick.dart';
@@ -66,7 +67,19 @@ class ClockFaceState extends State<ClockFace> {
             SizedBox(
               height: 10,
             ),
-            ClockFaceReset(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ClockFaceReset(),
+                IconButton(
+                  color: Colors.white,
+                  icon: Icon(TypiconsOmuAlarm.plus_outline),
+                  onPressed: () {
+                    cButt.saveTimer(mainText);
+                  },
+                ),
+              ],
+            )
           ],
         )
       ],

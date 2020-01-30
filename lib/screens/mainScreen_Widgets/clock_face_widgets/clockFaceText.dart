@@ -1,18 +1,17 @@
+//Comments last updated: 29-01-2020
 import 'dart:async';
 
 import 'package:alarm_app/modules/main_clock/main_clock_ClockButtons.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_TimerTick.dart';
-
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/hourSlider.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/minuteSlider.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_body_widgets/secondSlider.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../themeData.dart';
 import '../clock_face.dart';
 import 'resetButton.dart';
-
-ClockFace cFace = ClockFace();
 
 String mainText = "00:00:00";
 
@@ -22,6 +21,7 @@ class ClockFaceText extends StatefulWidget {
 }
 
 class ClockFaceTextState extends State<ClockFaceText> {
+  // Subscriptions to handle updating the UI whenever mainText changes
   StreamSubscription<String> secSub,
       minSub,
       hourSub,
@@ -29,22 +29,14 @@ class ClockFaceTextState extends State<ClockFaceText> {
       resetUpdateSub,
       loadFavSub;
 
+  //One setState to rule them all! or at least all the ones used for the clock.
   void updateText() {
     setState(() {
-      mainText = timText.setTimerText();
+      mainText = timTick.setTimerText();
     });
   }
 
-  void dispose() {
-    super.dispose();
-    loadFavSub.cancel();
-    resetUpdateSub.cancel();
-    timerSub.cancel();
-    secSub.cancel();
-    minSub.cancel();
-    hourSub.cancel();
-  }
-
+  // Setup for the Streamsubscriptions
   @override
   void initState() {
     super.initState();
@@ -56,6 +48,17 @@ class ClockFaceTextState extends State<ClockFaceText> {
     hourSub = subStreamString(hourCon, mainText);
   }
 
+  // Garbage collection for the streamSubscriptions
+  void dispose() {
+    super.dispose();
+    loadFavSub.cancel();
+    resetUpdateSub.cancel();
+    timerSub.cancel();
+    secSub.cancel();
+    minSub.cancel();
+    hourSub.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -65,6 +68,7 @@ class ClockFaceTextState extends State<ClockFaceText> {
     );
   }
 
+  //Streamsubscription setup
   StreamSubscription subStreamString(
       StreamController<String> controller, var value) {
     controller.stream.listen((value) {

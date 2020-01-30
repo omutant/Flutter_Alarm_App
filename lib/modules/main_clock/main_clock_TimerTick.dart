@@ -1,47 +1,66 @@
+//Comments last updated: 29-01-2020
 import 'dart:async';
 
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_face.dart';
+import 'package:flutter/services.dart';
 
+// Controller used to update timerText
 StreamController timerCon = StreamController<String>();
 
 class TimerTicker {
-  bool isAlarmPlaying = false;
-
+  bool isClockRunning = false;
+  // how long the alarm should keep playing in seconds.
+  int alarmPlayTime = 30;
+  // Communication channel used to connect Flutter to android's Kotlin codebase
+  var platform = MethodChannel('AlarmChannel');
+  // Timer logic
   void tick() {
-    if (isAlarmPlaying) {
-      timerTick();
+    timerCon.add(setTimerText());
+    if (isClockRunning) {
+      if (hour == 0 && min == 0 && sec == 0) {
+        isClockRunning = false;
+        _playAlarm();
+      }
+      countDown();
     }
   }
 
-  int timerTick() {
-    timerCon.add(timText.setTimerText());
-
-    if (isAlarmPlaying) {
-      if (hour == 0 && min == 0 && sec == 1) {
-        sec--;
-        isAlarmPlaying = false;
-      }
-
-      if (hour >= 0) {
-        if (min == 0 && sec != 0) {
-          return sec--;
-        }
-        if (min >= 1) {
-          if (sec >= 1) {
-            return sec--;
-          }
-          sec = 59;
-          return min--;
-        }
-        if (hour == 0) {
-          return 0;
-        }
-        sec = 59;
-        min = 59;
-        return hour--;
-      }
-      return 0;
+  // counts time down 1 sec
+  void countDown() {
+    if (sec > 0) {
+      sec--;
+      return;
     }
-    return 0;
+
+    if (min > 0) {
+      sec = 59;
+      min--;
+      return;
+    }
+
+    if (hour > 0) {
+      min = 59;
+      sec = 59;
+      hour--;
+      return;
+    }
+  }
+
+  // updates mainText. Used as a callback to update the clock UI
+  String setTimerText() {
+    return '${(hour.toString().padLeft(2, '0'))}:' +
+        '${(min.toString().padLeft(2, '0'))}:' +
+        '${(sec.toString().padLeft(2, '0'))}';
+  }
+
+  // Functions calling Kotlin logic
+  Future<void> _playAlarm() async {
+    await platform.invokeMethod("playAlarm");
+    _stopAlarm();
+  }
+
+  Future<void> _stopAlarm() async {
+    return new Future.delayed(Duration(seconds: alarmPlayTime),
+        () => {platform.invokeMethod("stopAlarm")});
   }
 }

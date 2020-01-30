@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -35,9 +35,14 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-  - family:  OmuAlarmIcons
+  - family:  TypiconsOmuAlarm
     fonts:
-      - asset: fonts/OmuAlarmIcons.ttf
+      - asset: fonts/TypiconsOmuAlarm.ttf
+
+  #  Typicons, (c) Stephen Hutchings 2012
+  #         Author:    Stephen Hutchings
+  #         License:   SIL (http://scripts.sil.org/OFL)
+  #         Homepage:  http://typicons.com/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

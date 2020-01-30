@@ -1,3 +1,4 @@
+//Comments last updated: 29-01-2020
 import 'dart:async';
 
 import 'package:alarm_app/modules/main_clock/main_clock_ClockButtons.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/material.dart';
 
 import 'clock_body_widgets/secondSlider.dart';
 
+// Updates Body when a Button is pressed
 StreamSubscription<String> bodSub, playUpdateSub, favUpdateBodySub;
-ClockFace cFace = ClockFace();
 
 class ClockBody extends StatefulWidget {
   @override
@@ -58,9 +59,7 @@ class ClockBodyState extends State<ClockBody> {
 
   StreamSubscription subStreamString(
       StreamController<String> controller, var value) {
-    controller.stream.listen((value) {
-      setState(() {});
-    });
+    controller.stream.listen((value) => setState(() {}));
     return null;
   }
 }

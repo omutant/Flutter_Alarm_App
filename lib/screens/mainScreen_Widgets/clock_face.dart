@@ -1,8 +1,8 @@
+//Comments last updated: 29-01-2020
 import 'dart:async';
 
 import 'package:alarm_app/icons/typicons_omu_alarm_icons.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_ClockButtons.dart';
-import 'package:alarm_app/modules/main_clock/main_clock_TimerText.dart';
 import 'package:alarm_app/modules/main_clock/main_clock_TimerTick.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_face_widgets/clockFaceText.dart';
 import 'package:alarm_app/screens/mainScreen_Widgets/clock_face_widgets/resetButton.dart';
@@ -13,7 +13,6 @@ import 'clock_face_widgets/pausePlayButton.dart';
 
 const oneSec = const Duration(seconds: 1);
 
-TimerText timText = new TimerText();
 TimerTicker timTick = new TimerTicker();
 ClockButtons cButt = new ClockButtons();
 
@@ -24,7 +23,6 @@ int hour = 0;
 StreamController<String> bodCon = StreamController<String>();
 
 class ClockFace extends StatefulWidget {
-  final timText = TimerText();
   final timTick = TimerTicker();
   final cButt = ClockButtons();
 
@@ -40,8 +38,8 @@ class ClockFaceState extends State<ClockFace> {
     Timer.periodic(Duration(seconds: 1), (Timer t) {
       setState(() {
         // Acception to the "No logic in the graphics code" rule
-        if (timTick.isAlarmPlaying) {
-          bodCon.add(timText.setTimerText());
+        if (timTick.isClockRunning) {
+          bodCon.add(timTick.setTimerText());
           timTick.tick();
         }
       });
@@ -74,9 +72,7 @@ class ClockFaceState extends State<ClockFace> {
                 IconButton(
                   color: Colors.white,
                   icon: Icon(TypiconsOmuAlarm.plus_outline),
-                  onPressed: () {
-                    cButt.saveTimer(mainText);
-                  },
+                  onPressed: () => cButt.saveTimer(mainText),
                 ),
               ],
             )

@@ -1,3 +1,4 @@
+//Comments last updated: 29-01-2020
 import 'dart:async';
 
 import 'package:alarm_app/icons/typicons_omu_alarm_icons.dart';
@@ -9,9 +10,8 @@ import '../clock_face.dart';
 import 'clockFaceText.dart';
 import 'resetButton.dart';
 
-ClockFace cFace = ClockFace();
+// Updates the Pause/Play icon when the reset button is pressed
 StreamController playUpdateCon = StreamController<String>();
-
 
 class ClockFacePP extends StatefulWidget {
   @override
@@ -19,11 +19,13 @@ class ClockFacePP extends StatefulWidget {
 }
 
 class ClockFacePPState extends State<ClockFacePP> {
+  // Updates the play icon whenever mainText updates
   StreamSubscription<String> updatePlayIconSub;
 
+  // Updates mainText
   void updateIcon() {
     setState(() {
-      mainText = timText.setTimerText();
+      mainText = timTick.setTimerText();
     });
   }
 
@@ -38,11 +40,11 @@ class ClockFacePPState extends State<ClockFacePP> {
     updatePlayIconSub = subStreamString(updatePlayIconCon, mainText);
   }
 
-    StreamSubscription subStreamString(
+  StreamSubscription subStreamString(
       StreamController<String> controller, var value) {
     controller.stream.listen((value) {
       updateIcon();
-      playUpdateCon.add(timText.setTimerText());
+      playUpdateCon.add(timTick.setTimerText());
     });
     return null;
   }
@@ -54,23 +56,19 @@ class ClockFacePPState extends State<ClockFacePP> {
         color: defaultTheme.backgroundColor,
         child: Ink(
           color: defaultTheme.backgroundColor,
-          child: !timTick.isAlarmPlaying
+          child: !timTick.isClockRunning
               ? IconButton(
                   color: Colors.white,
                   icon: Icon(TypiconsOmuAlarm.play_outline),
                   onPressed: () {
-                    setState(() {
-                      cButt.play();
-                    });
+                    setState(() => cButt.play());
                   },
                 )
               : IconButton(
                   color: Colors.white,
                   icon: Icon(TypiconsOmuAlarm.pause_outline),
                   onPressed: () {
-                    setState(() {
-                      cButt.pause();
-                    });
+                    setState(() => cButt.pause());
                   },
                 ),
         ),

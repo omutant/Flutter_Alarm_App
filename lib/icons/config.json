@@ -1,0 +1,40 @@
+{
+  "name": "TypiconsOmuAlarm",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "7b67ab93e2dd09f8884b574925ab9352",
+      "css": "minus-outline",
+      "code": 59393,
+      "src": "typicons"
+    },
+    {
+      "uid": "8d2b91edcad12992a96fc5eac674700d",
+      "css": "play-outline",
+      "code": 59394,
+      "src": "typicons"
+    },
+    {
+      "uid": "633072ff889a2ac52b162880e104550e",
+      "css": "pause-outline",
+      "code": 59395,
+      "src": "typicons"
+    },
+    {
+      "uid": "1fb50a37bc38da3863187931ac44ae5e",
+      "css": "cw-outline",
+      "code": 59396,
+      "src": "typicons"
+    },
+    {
+      "uid": "0677f879e75956571d8cbbb478487c47",
+      "css": "plus-outline",
+      "code": 59392,
+      "src": "typicons"
+    }
+  ]
+}
